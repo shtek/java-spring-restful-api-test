@@ -1,9 +1,10 @@
 package uk.co.huntersix.spring.rest.model;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
 public class Person {
-    private final AtomicLong counter = new AtomicLong();
+    private final static AtomicLong counter = new AtomicLong();
 
     private Long id;
     private String firstName;
@@ -21,6 +22,19 @@ public class Person {
 
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return firstName.equals(person.firstName) && lastName.equals(person.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
     }
 
     public void setId(Long id) {
